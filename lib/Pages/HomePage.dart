@@ -9,7 +9,83 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HgWeatherConnection teste = HgWeatherConnection();
+  HgWeatherConnection connection = HgWeatherConnection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.lightBlue,
+        title: Text(
+          "Tempo Atual",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      drawer: _buildDrawer(),
+      body: FutureBuilder<Map>(
+        future: connection.getResponse(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return Container(
+                width: 200.0,
+                height: 200.0,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  strokeWidth: 5.0,
+                ),
+              );
+            default:
+              if (snapshot.hasError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.error,
+                        color: Colors.red,
+                        size: 150.0,
+                      ),
+                      Text(
+                        "Algo de errado aconteceu...",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Container(
+                          height: 50.0,
+                          child: RaisedButton(
+                            child: Text(
+                              "Tentar Reconexão",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            color: Colors.white,
+                            onPressed: connectionRetry,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              else{
+                return Container(child: Text("TESTEEEEEEEE"),);
+              }
+          }
+        },
+      ),
+    );
+  }
+
+  void connectionRetry() {
+    setState(() {
+      build(context);
+    });
+  }
 
   Widget _buildDrawer() {
     return Drawer(
@@ -44,19 +120,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.lightBlue,
-        title: Text(
-          "Tempo Atual",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      drawer: _buildDrawer(),
-    );
-  }
 }
