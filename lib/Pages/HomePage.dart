@@ -27,6 +27,13 @@ class _HomePageState extends State<HomePage> {
           ),
           DrawerTile(
               Image.asset(
+                "images/hot.png",
+                height: 32.0,
+                width: 32.0,
+              ),
+              "Tempo Atual"),
+          DrawerTile(
+              Image.asset(
                 "images/sun.png",
                 height: 32.0,
                 width: 32.0,
@@ -45,7 +52,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
         title: Text(
-          "Previsão do Tempo",
+          "Tempo Atual",
           style: TextStyle(color: Colors.white),
         ),
       ),
