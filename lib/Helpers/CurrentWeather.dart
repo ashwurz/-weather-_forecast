@@ -45,4 +45,39 @@ class CurrentWeather{
     _horaAnoitecer = horaAnoitecer;
   }
 
+  String getTemperatura(){
+    return this._temperatura;
+  }
+
+  String getData(){
+    return this._data;
+  }
+
+  String getTempo(){
+    return this._tempo;
+  }
+
+  String getDiaOuNoite(){
+    return this._diaOuNoite;
+  }
+
+  String getCidade(){
+    return this._cidade;
+  }
+
+  String getHumidade(){
+    return this._humidade;
+  }
+
+  String getVelVento(){
+    return this._velVento;
+  }
+
+  String getHoraAmanhecer(){
+    return this._horaAmanhecer;
+  }
+
+  String getHoraAnoitecer(){
+    return this._horaAnoitecer;
+  }
 }

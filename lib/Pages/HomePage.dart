@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:previsao_tempo/ApiConnections/HgWeatherConnection.dart';
+import 'package:previsao_tempo/Helpers/CurrentWeather.dart';
 import 'package:previsao_tempo/Tiles/DrawerTile.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,14 +72,43 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 );
-              }
-              else{
-                return Container(child: Text("TESTEEEEEEEE"),);
+              } else {
+                CurrentWeather currentWeather = CurrentWeather();
+                setCurrentWeather(snapshot, currentWeather);
+
+                return SingleChildScrollView(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Temperatura: ${currentWeather.getTemperatura()}ºC",
+                            style: TextStyle(fontSize: 20.0),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                );
               }
           }
         },
       ),
     );
+  }
+
+  void setCurrentWeather(AsyncSnapshot snapshot, CurrentWeather current) {
+    current.setTemperatura(snapshot.data["results"]["temp"].toString());
+    current.setData(snapshot.data["results"]["date"].toString());
+    current.setTempo(snapshot.data["results"]["description"].toString());
+    current.setDiaOuNoite(snapshot.data["results"]["currently"].toString());
+    current.setCidade(snapshot.data["results"]["city"].toString());
+    current.setHumidade(snapshot.data["results"]["humidity"].toString());
+    current.setVelVento(snapshot.data["results"]["wind_speedy"].toString());
+    current.setHoraAmanhecer(snapshot.data["results"]["sunrise"].toString());
+    current.setHoraAnoitecer(snapshot.data["results"]["sunset"].toString());
   }
 
   void connectionRetry() {
