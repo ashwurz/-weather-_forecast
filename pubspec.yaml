@@ -45,6 +45,8 @@ flutter:
   assets:
     - images/sun.png
     - images/hot.png
+    - images/clear_day.png
+    - images/cloudly_day.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

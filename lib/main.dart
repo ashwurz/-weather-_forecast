@@ -5,5 +5,6 @@ void main(){
   runApp(MaterialApp(
     home: HomePage(),
     title: "Previsão do Tempo",
+    theme: ThemeData(hintColor: Colors.black),
   ));
 }

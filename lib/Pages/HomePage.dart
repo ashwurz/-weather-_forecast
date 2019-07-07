@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:previsao_tempo/ApiConnections/HgWeatherConnection.dart';
@@ -77,25 +78,130 @@ class _HomePageState extends State<HomePage> {
                 setCurrentWeather(snapshot, currentWeather);
 
                 return SingleChildScrollView(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            "Temperatura: ${currentWeather.getTemperatura()}ºC",
-                            style: TextStyle(fontSize: 20.0),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "${currentWeather.getCidade()}",
+                              style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Vento: ${currentWeather.getVelVento()}",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "${currentWeather.getData()}",
+                              style: TextStyle(
+                                  fontSize: 14.0, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Humidade: ${currentWeather.getHumidade()}%",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "Nascer do sol: ${currentWeather.getHoraAmanhecer()}",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "Pôr do sol: ${currentWeather.getHoraAnoitecer()}",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "Última atualização: ${currentWeather.getHoraAtualizacao()} hrs",
+                              style: TextStyle(
+                                  fontSize: 12.0, fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.transparent,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            _getTempoAtual(snapshot),
+                            Text(
+                              "${currentWeather.getTemperatura()}ºC",
+                              style: TextStyle(
+                                  fontSize: 70.0, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Center(
+                          child: Text(
+                            "${currentWeather.getTempo()}",
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 10.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                labelText: "Pesquisar por cidade",
+                                labelStyle: TextStyle(color: Colors.black),
+                                border: OutlineInputBorder(),
+                                prefixText: "Cidade: "),
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16.0),
+                            textAlign: TextAlign.left,
+                            onSubmitted: (text) {
+                              setState(() {
+                                connection.searchString = text;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ));
               }
           }
         },
       ),
+    );
+  }
+
+  Widget _getTempoAtual(AsyncSnapshot snapshot) {
+    String tempo = snapshot.data["results"]["condition_slug"].toString();
+    if (tempo.toUpperCase() == "clear_day".toUpperCase()) {
+      return _returnImage(snapshot, tempo);
+    } else if (tempo.toUpperCase() == "cloudly_day".toUpperCase()) {
+      return _returnImage(snapshot, tempo);
+    } else {
+      return Container(
+        child: Text("ERRO! TEMPO NAO IMPLEMENTADO"),
+      );
+    }
+  }
+
+  Widget _returnImage(AsyncSnapshot snapshot, String condition) {
+    return Image.asset(
+      "images/$condition.png",
+      height: 120.0,
+      width: 120.0,
     );
   }
 
@@ -104,11 +210,12 @@ class _HomePageState extends State<HomePage> {
     current.setData(snapshot.data["results"]["date"].toString());
     current.setTempo(snapshot.data["results"]["description"].toString());
     current.setDiaOuNoite(snapshot.data["results"]["currently"].toString());
-    current.setCidade(snapshot.data["results"]["city"].toString());
+    current.setCidade(snapshot.data["results"]["city_name"].toString());
     current.setHumidade(snapshot.data["results"]["humidity"].toString());
     current.setVelVento(snapshot.data["results"]["wind_speedy"].toString());
     current.setHoraAmanhecer(snapshot.data["results"]["sunrise"].toString());
     current.setHoraAnoitecer(snapshot.data["results"]["sunset"].toString());
+    current.setHoraAtualizacao(snapshot.data["results"]["time"].toString());
   }
 
   void connectionRetry() {

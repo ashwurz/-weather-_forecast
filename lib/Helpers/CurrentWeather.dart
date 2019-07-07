@@ -8,6 +8,7 @@ class CurrentWeather{
   String _velVento;
   String _horaAmanhecer;
   String _horaAnoitecer;
+  String _horaAtualizacao;
 
   void setTemperatura(String temperatura){
     _temperatura = temperatura;
@@ -44,6 +45,10 @@ class CurrentWeather{
   void setHoraAnoitecer(String horaAnoitecer){
     _horaAnoitecer = horaAnoitecer;
   }
+  
+  void setHoraAtualizacao(String hora){
+    _horaAtualizacao = hora;
+  }
 
   String getTemperatura(){
     return this._temperatura;
@@ -79,5 +84,9 @@ class CurrentWeather{
 
   String getHoraAnoitecer(){
     return this._horaAnoitecer;
+  }
+
+  String getHoraAtualizacao(){
+    return this._horaAtualizacao;
   }
 }
