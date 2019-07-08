@@ -43,10 +43,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/sun.png
+    #- images/sun.png
     - images/hot.png
     - images/clear_day.png
     - images/cloudly_day.png
+    - images/cloudly_night.png
+    - images/clear_night.png
+    - images/rain.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

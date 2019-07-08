@@ -151,10 +151,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        Center(
-                          child: Text(
-                            "${currentWeather.getTempo()}",
-                            style: TextStyle(fontSize: 18.0),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: Text(
+                              "${currentWeather.getTempo()}",
+                              style: TextStyle(fontSize: 18.0),
+                            ),
                           ),
                         ),
                         Padding(
@@ -186,15 +189,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getTempoAtual(AsyncSnapshot snapshot) {
     String tempo = snapshot.data["results"]["condition_slug"].toString();
-    if (tempo.toUpperCase() == "clear_day".toUpperCase()) {
-      return _returnImage(snapshot, tempo);
-    } else if (tempo.toUpperCase() == "cloudly_day".toUpperCase()) {
-      return _returnImage(snapshot, tempo);
-    } else {
-      return Container(
-        child: Text("ERRO! TEMPO NAO IMPLEMENTADO"),
-      );
-    }
+    return _returnImage(snapshot, tempo);
   }
 
   Widget _returnImage(AsyncSnapshot snapshot, String condition) {
