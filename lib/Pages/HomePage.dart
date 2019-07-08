@@ -6,7 +6,6 @@ import 'package:previsao_tempo/Helpers/CurrentWeather.dart';
 import 'package:previsao_tempo/Tiles/DrawerTile.dart';
 
 class HomePage extends StatefulWidget {
-
   final PageController pageController;
 
   HomePage(this.pageController);
@@ -40,13 +39,15 @@ class _HomePageState extends State<HomePage> {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return Container(
-                width: 200.0,
-                height: 200.0,
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                  strokeWidth: 5.0,
+              return Center(
+                child: Container(
+                  width: 200.0,
+                  height: 200.0,
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    strokeWidth: 5.0,
+                  ),
                 ),
               );
             default:
