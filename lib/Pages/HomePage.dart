@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                   fontSize: 14.0, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Humidade: ${currentWeather.getHumidade()}%",
+                              "Umidade: ${currentWeather.getHumidade()}%",
                               style: TextStyle(fontSize: 12.0),
                             ),
                           ],
