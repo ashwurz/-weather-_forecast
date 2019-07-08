@@ -239,14 +239,16 @@ class _HomePageState extends State<HomePage> {
                 height: 32.0,
                 width: 32.0,
               ),
-              "Tempo Atual"),
+              "Tempo Atual",
+              1),
           DrawerTile(
               Image.asset(
                 "images/icon_PrevisaoTempo.png",
                 height: 32.0,
                 width: 32.0,
               ),
-              "Previsão do Tempo"),
+              "Previsão do Tempo",
+              2),
         ],
       ),
     );
