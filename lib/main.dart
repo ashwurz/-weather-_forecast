@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:previsao_tempo/Pages/HomePage.dart';
+import 'PageView/PageList.dart';
 
 void main(){
   runApp(MaterialApp(
-    home: HomePage(),
+    home: PageList(),
     title: "Previsão do Tempo",
     theme: ThemeData(hintColor: Colors.black),
   ));

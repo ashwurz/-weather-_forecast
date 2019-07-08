@@ -3,11 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:previsao_tempo/Tiles/DrawerTile.dart';
 
 class WeatherForecast extends StatefulWidget {
+
+  final PageController pageController;
+
+  WeatherForecast(this.pageController);
+
   @override
-  _WeatherForecastState createState() => _WeatherForecastState();
+  _WeatherForecastState createState() => _WeatherForecastState(pageController);
 }
 
 class _WeatherForecastState extends State<WeatherForecast> {
+
+  final PageController pageController;
+
+  _WeatherForecastState(this.pageController);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +62,8 @@ class _WeatherForecastState extends State<WeatherForecast> {
                 width: 32.0,
               ),
               "Tempo Atual",
-              1),
+              0,
+              pageController),
           DrawerTile(
               Image.asset(
                 "images/icon_PrevisaoTempo.png",
@@ -60,7 +71,8 @@ class _WeatherForecastState extends State<WeatherForecast> {
                 width: 32.0,
               ),
               "Previsão do Tempo",
-              2),
+              1,
+              pageController),
         ],
       ),
     );

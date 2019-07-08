@@ -6,12 +6,20 @@ import 'package:previsao_tempo/Helpers/CurrentWeather.dart';
 import 'package:previsao_tempo/Tiles/DrawerTile.dart';
 
 class HomePage extends StatefulWidget {
+
+  final PageController pageController;
+
+  HomePage(this.pageController);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(pageController);
 }
 
 class _HomePageState extends State<HomePage> {
   HgWeatherConnection connection = HgWeatherConnection();
+  final PageController pageController;
+
+  _HomePageState(this.pageController);
 
   @override
   Widget build(BuildContext context) {
@@ -160,24 +168,29 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 10.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                labelText: "Pesquisar por cidade",
-                                labelStyle: TextStyle(color: Colors.black),
-                                border: OutlineInputBorder(),
-                                prefixText: "Cidade: "),
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 16.0),
-                            textAlign: TextAlign.left,
-                            onSubmitted: (text) {
-                              setState(() {
-                                connection.searchString = text;
-                              });
-                            },
+                        GestureDetector(
+                          child: Padding(
+                            padding:
+                                EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 10.0),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  labelText: "Pesquisar por cidade",
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  border: OutlineInputBorder(),
+                                  prefixText: "Cidade: "),
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 16.0),
+                              textAlign: TextAlign.left,
+                              onSubmitted: (text) {
+                                if (text != null || text.isNotEmpty) {
+                                  setState(() {
+                                    connection.searchString = text;
+                                  });
+                                }
+                              },
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ));
               }
@@ -240,7 +253,8 @@ class _HomePageState extends State<HomePage> {
                 width: 32.0,
               ),
               "Tempo Atual",
-              1),
+              0,
+              pageController),
           DrawerTile(
               Image.asset(
                 "images/icon_PrevisaoTempo.png",
@@ -248,7 +262,8 @@ class _HomePageState extends State<HomePage> {
                 width: 32.0,
               ),
               "Previsão do Tempo",
-              2),
+              1,
+              pageController),
         ],
       ),
     );
