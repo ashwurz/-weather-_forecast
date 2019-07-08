@@ -235,14 +235,14 @@ class _HomePageState extends State<HomePage> {
           ),
           DrawerTile(
               Image.asset(
-                "images/hot.png",
+                "images/icon_TempoAtual.png",
                 height: 32.0,
                 width: 32.0,
               ),
               "Tempo Atual"),
           DrawerTile(
               Image.asset(
-                "images/sun.png",
+                "images/icon_PrevisaoTempo.png",
                 height: 32.0,
                 width: 32.0,
               ),
