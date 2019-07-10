@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getTempoAtual(AsyncSnapshot snapshot) {
-    String tempo = snapshot.data["results"]["condition_slug"].toString();
+    String tempo = snapshot.data["results"]["condition_slug"];
     return _returnImage(snapshot, tempo);
   }
 
