@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:previsao_tempo/Tiles/DrawerTile.dart';
 
 class WeatherForecast extends StatefulWidget {
-
   final PageController pageController;
 
   WeatherForecast(this.pageController);
@@ -13,7 +12,6 @@ class WeatherForecast extends StatefulWidget {
 }
 
 class _WeatherForecastState extends State<WeatherForecast> {
-
   final PageController pageController;
 
   _WeatherForecastState(this.pageController);
@@ -43,36 +41,47 @@ class _WeatherForecastState extends State<WeatherForecast> {
 
   Widget _buildDrawer() {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.only(left: 32.0, top: 16.0),
+      child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 8.0),
-            padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
-            //height: 170.0,
-            child: Text(
-              "Nome Aplicativo",
-              style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
-            ),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 203, 236, 241), Colors.white],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
           ),
-          DrawerTile(
-              Image.asset(
-                "images/icon_TempoAtual.png",
-                height: 32.0,
-                width: 32.0,
+          ListView(
+            padding: EdgeInsets.only(left: 32.0, top: 16.0),
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 8.0),
+                padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
+                //height: 170.0,
+                child: Text(
+                  "Nome Aplicativo",
+                  style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
+                ),
               ),
-              "Tempo Atual",
-              0,
-              pageController),
-          DrawerTile(
-              Image.asset(
-                "images/icon_PrevisaoTempo.png",
-                height: 32.0,
-                width: 32.0,
-              ),
-              "Previsão do Tempo",
-              1,
-              pageController),
+              DrawerTile(
+                  Image.asset(
+                    "images/icon_TempoAtual.png",
+                    height: 32.0,
+                    width: 32.0,
+                  ),
+                  "Tempo Atual",
+                  0,
+                  pageController),
+              DrawerTile(
+                  Image.asset(
+                    "images/icon_PrevisaoTempo.png",
+                    height: 32.0,
+                    width: 32.0,
+                  ),
+                  "Previsão do Tempo",
+                  1,
+                  pageController),
+            ],
+          ),
         ],
       ),
     );
